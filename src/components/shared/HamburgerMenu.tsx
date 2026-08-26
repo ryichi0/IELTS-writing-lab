@@ -31,7 +31,9 @@ export default function HamburgerMenu() {
           </div>
         </div>
         :
-        <span className="cursor-pointer" onClick={() => setDisplayMenu(true)}>menu</span>
+        <span className="cursor-pointer" onClick={() => setDisplayMenu(true)}>
+          <img src="/menu.jpg" alt="" />
+        </span>
       }
     </>
   )
