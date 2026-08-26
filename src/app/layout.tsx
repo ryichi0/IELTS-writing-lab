@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-background!">
         <Navbar />
         <MobileNavbar />
-        <main className="w-300 mx-auto my-10 border border-amber-500">
+        <main className="border border-amber-500">
         {children}
 
         </main>
