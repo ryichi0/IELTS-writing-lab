@@ -13,7 +13,7 @@ export default function DailyTopicCard() {
 
   
   return (
-    <section className="p-8 bg-surface rounded-xl flex flex-col gap-6 hover:shadow-card">
+    <section className="md:p-8 p-5 bg-surface rounded-xl flex flex-col gap-6 hover:shadow-card">
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           <span className="text-label bg-success-bg text-success-muted font-bold p-1 rounded-md">DAILY CHALLENGE</span>
