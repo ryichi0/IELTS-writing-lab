@@ -13,7 +13,7 @@ export default function LearningSection() {
 
 
   return (
-    <div className="bg-surface md:p-6 p-5 flex flex-col gap-4 rounded-lg">
+    <div className="bg-surface md:p-6 p-5 flex flex-col gap-4 rounded-lg hover:shadow-card">
       <div>
         <span className="text-foreground-muted text-label">LEARNING HUB</span>
         <h4 className="text-h2">{LEARNING_HUB[0].title}</h4>
