@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import NavLink from './NavLink'
+import Image from 'next/image'
 
 export default function Navbar() {
   const nav_links = [
@@ -20,7 +21,14 @@ export default function Navbar() {
         })}
       </ul>
       <div>
-        <Link href={"/profile"}>Profile</Link>
+        <Link href={"/profile"} className="flex gap-3 ">
+          <div className="flex flex-col items-end">
+            <p className="font-bold" >Alex Mercer</p>
+            <span className="text-caption text-foreground-muted font-light">Academic Candidate</span>
+          </div>
+          <Image src={'/avatar-large.jpg'} alt={"avatar"}
+            width={38} height={38} />
+        </Link>
       </div>
     </nav>
   )
