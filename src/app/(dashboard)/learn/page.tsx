@@ -25,7 +25,7 @@ export default function Learn() {
     return (item.title).toLowerCase() === keyword
   })
   return (
-    <div className="flex flex-col gap-8 md:pt-10 md:pb-16 pt-0">
+    <div className="flex flex-col gap-8 md:pb-16 pt-0">
       <div className="hidden md:block">
         <h1 className="text-h1 md:text-display">Academic Writing Task 1 Library</h1>
         <p className="text-foreground-secondary mt-1">Learn structured strategies, sentence frameworks, and vocabulary for each task variety.</p>
