@@ -5,7 +5,7 @@ import SecondaryButton from '@/components/ui/SecondaryButton'
 import PrimaryButton from '@/components/ui/PrimaryButton'
 import { prisma } from '@/lib/prisma'
 
-export default async function page({params}: {params: Promise<{ id: string }>}) {
+export default async function page({params}: {params: Promise<{ topic_id: string }>}) {
   const { topic_id } = await params;
 
   const topic = await prisma.topic.findUnique({
