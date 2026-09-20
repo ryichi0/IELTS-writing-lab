@@ -3,12 +3,24 @@ import React from 'react'
 import TaskHeader from './_components/TaskHeader'
 import SecondaryButton from '@/components/ui/SecondaryButton'
 import PrimaryButton from '@/components/ui/PrimaryButton'
+import { prisma } from '@/lib/prisma'
 
-export default function page() {
+export default async function page({params}: {params: Promise<{ id: string }>}) {
+  const { topic_id } = await params;
+
+  const topic = await prisma.topic.findUnique({
+    where: {
+      id: topic_id,
+    },
+  });
+
+  if (!topic) {
+    return <div>Topic not found</div>;
+  }
   return (
     <div className="flex flex-col md:flex-row gap-6 md:items-start">
       <div className="flex flex-col gap-4 md:gap-6 flex-1/5 bg-surface md:p-6 p-4 rounded-lg border border-border">
-        <TaskHeader />
+        <TaskHeader topic={topic} />
         <div className="w-full bg-border h-0.5"></div>
         <Image className="w-full md:hidden" src="/Frame.png" alt="ACADEMIC TASK 1" width={400} height={100} />
         <Image className="w-full hidden md:block" src="/simulated-chart.png" alt="ACADEMIC TASK 1" width={400} height={100} />

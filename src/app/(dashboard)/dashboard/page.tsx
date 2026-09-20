@@ -1,13 +1,20 @@
 import DailyTopicCard from './_components/DailyTopicCard'
 import RecentWritings from './_components/RecentWritings'
 import LearningSection from './_components/LearningSection'
+import { prisma } from '@/lib/prisma';
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+
+  const topic = await prisma.topic.findFirst({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return (
     <div className="flex md:flex-row flex-col gap-8">
       <div className="md:flex-3/5 flex flex-col gap-8">
-        <DailyTopicCard />
+        <DailyTopicCard topic={topic} />
         <RecentWritings />
       </div>
 
