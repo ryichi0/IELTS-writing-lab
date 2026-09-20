@@ -11,6 +11,11 @@ export default async function DashboardPage() {
     },
   });
 
+
+  if (!topic) {
+    return <div>No topic available.</div>;
+  }
+
   return (
     <div className="flex md:flex-row flex-col gap-8">
       <div className="md:flex-3/5 flex flex-col gap-8">

@@ -1,9 +1,10 @@
 import PrimaryButton from '@/components/ui/PrimaryButton'
 import SecondaryButton from '@/components/ui/SecondaryButton'
+import { Topic } from '@/types/topic'
 import Image from 'next/image'
 import React from 'react'
 
-export default function DailyTopicCard({topic} : {topic: {}}) {
+export default function DailyTopicCard({topic} : {topic: Topic}) {
 
   const DAILY_TOPICS = {
     title: "Water Consumption by Sector in Selected Countries",
