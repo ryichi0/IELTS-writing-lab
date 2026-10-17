@@ -1,0 +1,1 @@
+export type NavUser = { name: string; email: string } | null;

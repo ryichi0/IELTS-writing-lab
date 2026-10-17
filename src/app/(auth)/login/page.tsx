@@ -1,10 +1,22 @@
 import PrimaryButton from '@/components/ui/PrimaryButton'
 import PrimaryLink from '@/components/ui/PrimaryLink'
+import { getCurrentUser } from '@/lib/auth';
+import { safeNext } from '@/lib/safe-next';
 import Image from 'next/image'
-import React from 'react'
+import LoginForm from '../_components/LoginForm';
+import { redirect } from "next/navigation";
 
 
-export default function Login() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
+  const safe = safeNext(next);
+
+  if (await getCurrentUser()) redirect(safe); // قبلاً لاگین است
+
   return (
     <>
       <div className="flex flex-col gap-3 items-center">
@@ -14,25 +26,7 @@ export default function Login() {
           <p className="text-foreground-secondary text-body">Clean, focused practice for Task 1 candidates.</p>
         </div>
       </div>
-      <form action="">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-2">
-            <label className="text-black font-bold" htmlFor="">Email Address</label>
-            <input className="border border-border p-3 rounded-md" placeholder='alex.mercer@candidate.com' type="email" name="" id="" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between">
-              <label className="text-black font-bold" htmlFor="">Password</label>
-              <PrimaryLink className={"text-primary text-body-sm"} title={"Forget Password?"} link={""} />
-            </div>
-            <input className="border border-border p-3 rounded-md" type="password" name="" id="" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 mt-6">
-          <PrimaryButton title={'Log In'} link={'dashboard'} className={''} />
-          <p className="text-foreground-secondary self-center ">Don't have an account? <PrimaryLink className={''} title={'Sign Up'} link={"/register"} /></p>
-        </div>
-      </form>
+      <LoginForm next={safe}  />
     </>
   )
 }

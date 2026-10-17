@@ -38,7 +38,7 @@ export default function DailyTopicCard({topic} : {topic: Topic}) {
         />
       </div>
       <div className="flex flex-col md:flex-row gap-4 items-stretch">
-        <PrimaryButton className="" title="Start writing" link={`/${topic?.id}`} />
+        <PrimaryButton className="" title="Start writing" link={`/topics/${topic?.id}`} />
         <SecondaryButton className="md:inline hidden" title="View Writing Guide" link="/learn" />
       </div>
 

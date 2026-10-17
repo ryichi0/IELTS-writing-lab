@@ -28,7 +28,7 @@ enum TopicType {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String   @id 
   name      String
   email     String   @unique
   createdAt DateTime @default(now())

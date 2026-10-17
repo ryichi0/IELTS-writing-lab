@@ -10,6 +10,8 @@ type FilterStatus = "all" | "draft" | "submitted";
 
 export default function Writings() {
 
+  
+
   const [keyword, setKeyword] = useState<FilterStatus>("all")
   const FILTER_BUTTONS = [
     { title: "all" },

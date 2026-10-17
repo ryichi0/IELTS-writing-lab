@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
 import ProfileStatics from './_components/ProfileStatics'
+import { getCurrentUser } from '@/lib/auth';
 
-export default function Profile() {
+export default async function Profile() {
+  const user = await getCurrentUser();
   return (
     <section className="flex flex-col md:flex-row gap-5 md:gap-8 md:items-start">
       <div className="p-5 md:p-8 flex flex-col gap-4 md:gap-6 items-center bg-surface rounded-lg border border-border md:flex-3 md:min-w-100 ">
@@ -10,8 +12,8 @@ export default function Profile() {
           width={120} height={120} />
 
         <div>
-          <p className="text-h2 text-center">Alex Mercer</p>
-          <small className="text-body text-foreground-secondary">alex.mercer@candidate.com</small>
+          <p className="text-h2 text-center">{user?.name}</p>
+          <small className="text-body text-foreground-secondary">{user?.email}</small>
         </div>
         <div className="border-t border-border w-full "></div>
         <div className="w-full">
