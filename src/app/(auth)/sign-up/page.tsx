@@ -25,7 +25,7 @@ export default async function SignupPage({
           <p className="text-foreground-secondary text-body">Clean, focused practice for Task 1 candidates.</p>
         </div>
       </div>
-      <SignupForm next={safe} />;
+      <SignupForm next={safe} />
     </>
   )
 }
