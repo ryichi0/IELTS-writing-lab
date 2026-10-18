@@ -3,6 +3,7 @@ import NavLink from './NavLink'
 import Image from 'next/image'
 import { NavUser } from '@/types/auth'
 import PrimaryButton from '../ui/PrimaryButton'
+import LogoutButton from './LogoutButton'
 
 export default function Navbar({ user }: { user: NavUser }) {
 
@@ -14,22 +15,25 @@ export default function Navbar({ user }: { user: NavUser }) {
 
       <ul className="flex gap-4">
         <li><NavLink link="/dashboard" title="Dashboard" /></li>
-        <li><NavLink link="/Learn" title="Learn" /></li>
+        <li><NavLink link="/learn" title="Learn" /></li>
         {user && <li><NavLink link="/writings" title="writings" /></li>}
       </ul>
 
 
       <div>
         {user ?
-        <Link href={"/profile"} className="flex gap-3 ">
-          <div className="flex flex-col items-end">
-            <p className="font-bold" >{user?.name}</p>
-            <span className="text-caption text-foreground-muted font-light">{user?.email}</span>
+          <div>
+            <Link href={"/profile"} className="flex gap-3 ">
+              <div className="flex flex-col items-end">
+                <p className="font-bold" >{user?.name}</p>
+                <span className="text-caption text-foreground-muted font-light">{user?.email}</span>
+              </div>
+              <div className="bg-primary/30 size-10 rounded-full flex justify-center items-center">{user?.name[0]}</div>
+            </Link>
+            <LogoutButton />
           </div>
-          <div className="bg-primary/30 size-10 rounded-full flex justify-center items-center">{user?.name[0]}</div>
-        </Link>
-        : 
-        <PrimaryButton className="" title={"login / signup"} link={"/login"}/>
+          :
+          <PrimaryButton className="" title={"login / signup"} link={"/login"} />
         }
       </div>
     </nav>
