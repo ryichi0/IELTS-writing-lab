@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import NavLink from './NavLink'
 import { NavUser } from '@/types/auth'
 import PrimaryButton from '../ui/PrimaryButton'
+import LogoutButton from './LogoutButton'
 
 
 export default function HamburgerMenu({ user }: { user: NavUser }) {
@@ -22,13 +23,16 @@ export default function HamburgerMenu({ user }: { user: NavUser }) {
           </ul>
           <div className="border-t border-t-primary pt-3">
             {user ?
-              <Link href={"/profile"} className="flex gap-3 ">
-                <div className="bg-primary/30 size-10 rounded-full flex justify-center items-center">{user?.name[0]}</div>
-                <div className="flex flex-col items-start">
-                  <p className="font-bold" >{user?.name}</p>
-                  <span className="text-caption text-foreground-muted font-light">{user?.email}</span>
-                </div>
-              </Link>
+              <div className="flex justify-between items-center">
+                <Link href={"/profile"} className="flex gap-3 ">
+                  <div className="bg-primary/30 size-10 rounded-full flex justify-center items-center">{user?.name[0]}</div>
+                  <div className="flex flex-col items-start">
+                    <p className="font-bold" >{user?.name}</p>
+                    <span className="text-caption text-foreground-muted font-light">{user?.email}</span>
+                  </div>
+                </Link>
+                <LogoutButton />
+              </div>
               :
               <PrimaryButton className="" title={"login / signup"} link={"/login"} />
             }

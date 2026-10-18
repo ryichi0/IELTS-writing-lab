@@ -1,16 +1,19 @@
 import Link from 'next/link'
 import NavLink from './NavLink'
-import Image from 'next/image'
 import { NavUser } from '@/types/auth'
 import PrimaryButton from '../ui/PrimaryButton'
 import LogoutButton from './LogoutButton'
+import Image from 'next/image'
 
 export default function Navbar({ user }: { user: NavUser }) {
 
 
   return (
     <nav className="hidden md:flex md:w-full justify-between items-center bg-surface h-18 px-12">
-      <div className="text-h3 text-primary">IELTS WRITING LAB</div>
+      <div className="text-h3 text-primary flex gap-2">
+        <Image src="/auth-logo.svg" width="25" height="25" alt="ielts writing lab logo" />
+        <span>IELTS WRITING LAB</span>
+      </div>
 
 
       <ul className="flex gap-4">
@@ -22,13 +25,12 @@ export default function Navbar({ user }: { user: NavUser }) {
 
       <div>
         {user ?
-          <div>
-            <Link href={"/profile"} className="flex gap-3 ">
+          <div className="flex gap-3">
+            <Link href={"/profile"}>
               <div className="flex flex-col items-end">
                 <p className="font-bold" >{user?.name}</p>
                 <span className="text-caption text-foreground-muted font-light">{user?.email}</span>
               </div>
-              <div className="bg-primary/30 size-10 rounded-full flex justify-center items-center">{user?.name[0]}</div>
             </Link>
             <LogoutButton />
           </div>

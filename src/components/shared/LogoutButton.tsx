@@ -1,13 +1,15 @@
 import { logout } from "@/app/(auth)/actions";
+import { LogOut } from "lucide-react";
 
 export default function LogoutButton() {
   return (
     <form action={logout}>
       <button
         type="submit"
-        className="rounded-md border px-3 py-1.5 text-sm hover:bg-foreground/5"
+        title="Logout"
+        className="rounded-full border border-gray-500 p-1.5 text-sm hover:bg-foreground/5 cursor-pointer"
       >
-        Log out
+        <LogOut className="text-primary"/>
       </button>
     </form>
   );

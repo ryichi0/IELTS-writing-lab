@@ -55,7 +55,7 @@ export default function SignupForm({ next }: { next: string }) {
 
 
       <button type="submit" disabled={pending}
-        className="w-full rounded-md bg-primary px-3 py-2 text-background disabled:opacity-50">
+        className="w-full cursor-pointer rounded-md bg-primary px-3 py-2 text-background disabled:opacity-50">
         {pending ? "Creating..." : "Sign up"}
       </button>
 
