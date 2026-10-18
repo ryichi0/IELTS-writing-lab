@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
+const AUTH_PAGES = ["/login", "/sign-up"];
+const PUBLIC_EXACT = ["/", "/dashboard"];
+const PUBLIC_PREFIX = ["/learn"];
+
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -25,14 +29,29 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { pathname } = request.nextUrl;
-  const isPrivate =
-    pathname.startsWith("/writings") || pathname.startsWith("/profile");
+  const { pathname, search } = request.nextUrl;
 
-  if (!user && isPrivate) {
+  const isAuthPage = AUTH_PAGES.includes(pathname);
+  const isPublic =
+    isAuthPage ||
+    PUBLIC_EXACT.includes(pathname) ||
+    PUBLIC_PREFIX.some((p) => pathname === p || pathname.startsWith(p + "/"));
+
+  if (!user && !isPublic) {
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    url.search = `?next=${encodeURIComponent(pathname)}`;
+    url.search = "";
+    url.searchParams.set("next", pathname + search);
+    return NextResponse.redirect(url);
+  }
+
+  if (user && isAuthPage) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/dashboard";
+    url.search = "";
     return NextResponse.redirect(url);
   }
 
