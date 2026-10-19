@@ -5,13 +5,7 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function DailyTopicCard({topic} : {topic: Topic}) {
-
-  const DAILY_TOPICS = {
-    title: "Water Consumption by Sector in Selected Countries",
-    body: 'The bar chart illustrates the volume of water consumed by domestic, industrial, and agricultural sectors across four highly developed nations. Analyze the main trends and write your analysis under real exam parameters.',
-    picture: "/chart-preview.jpg"
-  }
-
+  console.log(topic.id);
   
   return (
     <section className="md:p-8 p-5 bg-surface rounded-xl flex flex-col gap-6 hover:shadow-card">
@@ -31,7 +25,7 @@ export default function DailyTopicCard({topic} : {topic: Topic}) {
         </div>
         <Image
           className="self-center"
-          src={DAILY_TOPICS.picture}
+          src={"/chart-preview.jpg"}
           alt={topic?.title.slice(0, 3)}
           height={140}
           width={500}
@@ -41,7 +35,6 @@ export default function DailyTopicCard({topic} : {topic: Topic}) {
         <PrimaryButton className="" title="Start writing" link={`/topics/${topic?.id}`} />
         <SecondaryButton className="md:inline hidden" title="View Writing Guide" link="/learn" />
       </div>
-
     </section>
   )
 }

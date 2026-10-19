@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 
 const AUTH_PAGES = ["/login", "/sign-up"];
 const PUBLIC_EXACT = ["/", "/dashboard"];
-const PUBLIC_PREFIX = ["/learn"];
+const PUBLIC_PREFIX = ["/learn", "/topics"];
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
