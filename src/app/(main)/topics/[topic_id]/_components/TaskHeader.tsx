@@ -1,8 +1,9 @@
 'use client'
+import { Topic } from '@/types/topic'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
-export default function TaskHeader({topic}: {topic: {}}) {
+export default function TaskHeader({topic}: {topic: Topic}) {
   const [dropdown, setDropdown] = useState(false)
   return (
     <div className={`${dropdown ? "max-h-9 md:max-h-10" : "max-h-50 md:mx-h-50"} overflow-hidden flex flex-col gap-2 md:gap-5 transition-all`}>

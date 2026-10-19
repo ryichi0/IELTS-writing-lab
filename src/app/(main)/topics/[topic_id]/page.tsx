@@ -2,9 +2,11 @@ import Image from 'next/image'
 import TaskHeader from './_components/TaskHeader'
 import { prisma } from '@/lib/prisma'
 import WritingForm from './_components/WritingForm'
+import { notFound } from 'next/navigation';
 
-export default async function page({params}: {params: Promise<{ topic_id: string }>}) {
+export default async function page({ params }: { params: Promise<{ topic_id: string }> }) {
   const { topic_id } = await params;
+  console.log(topic_id);
 
   const topic = await prisma.topic.findUnique({
     where: {
@@ -13,9 +15,7 @@ export default async function page({params}: {params: Promise<{ topic_id: string
   });
 
 
-  if (!topic) {
-    return <div>Topic not found</div>;
-  }
+  if (!topic) notFound()
   return (
     <div className="flex flex-col md:flex-row gap-6 md:items-start">
       <div className="flex flex-col gap-4 md:gap-6 flex-1/5 bg-surface md:p-6 p-4 rounded-lg border border-border">
@@ -33,7 +33,7 @@ export default async function page({params}: {params: Promise<{ topic_id: string
           </div> */}
           <span className="text-foreground-secondary">Goal: Min 150 words</span>
         </div>
-        <WritingForm />
+        <WritingForm topicId={topic_id} />
       </div>
     </div>
   )
