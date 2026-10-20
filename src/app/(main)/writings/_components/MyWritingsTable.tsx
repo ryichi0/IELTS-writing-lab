@@ -27,7 +27,7 @@ export default function MyWritingsTable({ data }: { data: Writing[] }) {
               <td className="w-[60%] font-bold">{item.topic.title}</td>
               <td className="w-[8%] text-foreground-secondary text-body">{item.wordCount}</td>
               <td className="w-[8%]">
-                <Link className={`font-medium text-body py-1 px-3 rounded-md hover:shadow-card ${item.status === "SUBMITTED" ? "text-success bg-success-bg" : "text-warning bg-warning-bg"}`} href="/">{item.status}</Link>
+                <span className={`font-medium text-body py-1 px-3 rounded-md hover:shadow-card ${item.status === "SUBMITTED" ? "text-success bg-success-bg" : "text-warning bg-warning-bg"}`}>{item.status}</span>
               </td>
               <td className="w-[8%]">{item.score}</td>
               <td className="w-[8%]">

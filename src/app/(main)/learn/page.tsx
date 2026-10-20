@@ -34,7 +34,7 @@ export default function Learn() {
       <div className="flex flex-wrap gap-2">
         {FILTER_BUTTONS.map((item, index) => {
           return (
-            <button onClick={() => setKeyword(item.title)} className={`${keyword === item.title ? "bg-primary text-surface" : "bg-surface border border-border text-foreground-secondary"} hover:shadow-card font-medium rounded-full py-2 px-4 capitalize cursor-pointer`} key={index}>{item.title}</button>
+            <button key={index} onClick={() => setKeyword(item.title)} className={`${keyword === item.title ? "bg-primary text-surface" : "bg-surface border border-border text-foreground-secondary"} hover:shadow-card font-medium rounded-full py-2 px-4 capitalize cursor-pointer`}>{item.title}</button>
           )
         })}
       </div>
@@ -44,7 +44,7 @@ export default function Learn() {
             <>
               {item.topics.map((topic, index) => {
                 return (
-                  <div className="bg-surface flex flex-col justify-between rounded-lg hover:shadow-card p-6 md:h-64 gap-4">
+                  <div key={index} className="bg-surface flex flex-col justify-between rounded-lg hover:shadow-card p-6 md:h-64 gap-4">
                     <div className="flex flex-col gap-2">
                       <div className="flex gap-2 items-center">
                         <span className="bg-success-bg text-success-muted rounded-md font-bold text-label p-1">{item.title}</span>
