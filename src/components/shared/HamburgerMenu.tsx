@@ -19,7 +19,7 @@ export default function HamburgerMenu({ user }: { user: NavUser }) {
           <ul className="flex flex-col items-start">
             <li><NavLink link="/dashboard" title="Dashboard" /></li>
             <li><NavLink link="/learn" title="Learn" /></li>
-            {user && <li><NavLink link="/writings" title="writings" /></li>}
+            {user && <li><NavLink link="/writings" title="my Writings" /></li>}
           </ul>
           <div className="border-t border-t-primary pt-3">
             {user ?

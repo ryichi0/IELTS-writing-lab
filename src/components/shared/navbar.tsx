@@ -19,7 +19,7 @@ export default function Navbar({ user }: { user: NavUser }) {
       <ul className="flex gap-4">
         <li><NavLink link="/dashboard" title="Dashboard" /></li>
         <li><NavLink link="/learn" title="Learn" /></li>
-        {user && <li><NavLink link="/writings" title="writings" /></li>}
+        {user && <li><NavLink link="/writings" title="My Writings" /></li>}
       </ul>
 
 
