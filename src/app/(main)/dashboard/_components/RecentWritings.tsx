@@ -28,7 +28,7 @@ export default async function RecentWritings() {
             </div>
             <div className="flex items-center gap-4">
               <span className={`font-medium text-body py-1 px-3 rounded-md hover:shadow-card ${item.status === "SUBMITTED" ? "text-success bg-success-bg" : "text-warning bg-warning-bg"}`} >{item.status}</span>
-              <PrimaryLink className="hidden md:inline" link="/" title={item.status === "SUBMITTED" ? "View Report" : "Continue"} />
+              <PrimaryLink className="hidden md:inline" link={`writings/${item.id}`} title={item.status === "SUBMITTED" ? "View Report" : "Continue"} />
             </div>
           </div>
         )

@@ -31,7 +31,7 @@ export default function MyWritingsTable({ data }: { data: Writing[] }) {
               </td>
               <td className="w-[8%]">{item.score}</td>
               <td className="w-[8%]">
-                <PrimaryLink className="" title="preview" link={"/"} />
+                <PrimaryLink className="" title="preview" link={`writings/${item.id}`} />
               </td>
             </tr>
           )

@@ -13,3 +13,19 @@ export async function getUserWritings(limit?: number) {
     include: { topic: { select: { id: true, title: true, type: true } } },
   });
 }
+
+export async function getSingleWriting(writingId: string) {
+  const user = await getCurrentUser();
+
+  if (!user) return null;
+
+  return prisma.writing.findFirst({
+    where: {
+      id: writingId,
+      userId: user.id,
+    },
+    include: {
+      topic: true,
+    },
+  });
+}
