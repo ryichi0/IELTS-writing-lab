@@ -18,9 +18,7 @@ export async function saveWriting(_: State, formData: FormData): Promise<State> 
   if (!user) redirect(`/login?next=${encodeURIComponent(`/topics/${topicId}`)}`);
 
   const wordCount = content.split(/\s+/).filter(Boolean).length;
-  if (wordCount < MIN_WORDS) {
-    return { error: `Write at least ${MIN_WORDS} words. You have ${wordCount}.` };
-  }
+  
   if (content.length > MAX_CHARS) {
     return { error: "Your text is too long." };
   }
