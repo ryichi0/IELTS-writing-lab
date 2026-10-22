@@ -1,13 +1,12 @@
-import NavLink from '@/components/shared/NavLink';
 import PrimaryLink from '@/components/ui/PrimaryLink';
 import { formatDate } from '@/lib/format';
 import { getSingleWriting } from '@/lib/writings';
-import { ChevronRightIcon, RecycleIcon, Trash, Trash2 } from 'lucide-react';
+import { ChevronRightIcon, ClipboardList, Trash } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import TaskHeader from '../../topics/[topic_id]/_components/TaskHeader';
 import Image from 'next/image';
-import PrimaryButton from '@/components/ui/PrimaryButton';
-import SecondaryButton from '@/components/ui/SecondaryButton';
+import UpdateWritingMode from './_components/UpdateWritingMode';
+import { deleteWriting } from './actions';
 
 
 
@@ -15,6 +14,8 @@ export default async function page({ params }: { params: Promise<{ id: string }>
   const { id } = await params;
   const writing = await getSingleWriting(id)
   if (!writing) notFound()
+  const wasUpdated = writing.updatedAt.getTime() - writing.createdAt.getTime() > 1000;
+
 
   return (
     <div className="flex flex-col gap-6">
@@ -27,7 +28,7 @@ export default async function page({ params }: { params: Promise<{ id: string }>
       </div>
 
 
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-between items-start">
         <div className="flex flex-col gap-4">
           <h1 className="text-h1">Writing Details</h1>
 
@@ -37,11 +38,9 @@ export default async function page({ params }: { params: Promise<{ id: string }>
           </div>
           <p className="text-foreground-muted font-light">
             <span>{formatDate(writing.createdAt)}</span>
-            <span>{!writing.updatedAt && `·  Last updated ${formatDate(writing.createdAt)}`}</span>
+            {wasUpdated && <span> · Last updated {formatDate(writing.updatedAt)}</span>}
           </p>
-
         </div>
-        <PrimaryButton className="hidden md:inline" title="Edit writing" link={''} />
       </div>
 
 
@@ -54,26 +53,27 @@ export default async function page({ params }: { params: Promise<{ id: string }>
         </div>
 
         <div className="flex-2 flex flex-col gap-6">
+
+          <UpdateWritingMode writing={writing} />
+
           <div className="bg-surface flex flex-col md:gap-6 gap-4 md:p-8 p-4 rounded-lg shadow-card border border-border">
-            <div className="flex justify-between">
-              <p className="font-bold">Your Response</p>
-              <span className="font-light text-foreground-secondary">{writing.wordCount} words</span>
+            <p className="font-bold">Ai Evaluation</p>
+            <div className="bg-gray-50 rounded-md p-6 flex flex-col gap-3 items-center justify-center border border-border">
+              <ClipboardList />
+              <span className="font-bold">Not yet evaluated</span>
+              <p className="text-foreground-secondary text-body-sm text-center">Your writing has been submitted. AI feedback will appear here when it is available.</p>
             </div>
-            <div className="w-full border-t border-border "></div>
-            <p className="text-foreground text-body">{writing.content}</p>
           </div>
-          <div className="bg-surface flex flex-col md:gap-6 gap-4 md:p-8 p-4 rounded-lg shadow-card border border-border">ai evaluation</div>
         </div>
       </div>
 
       <div className="w-full border-t border-border "></div>
-
-
-      <div className="flex flex-col md:flex-row md:justify-between gap-4 items-stretch">
-        <SecondaryButton className="" title="Back to My Writings" link={"/writings"} />
-        <button className="text-error font-bold">
-        <Trash className="size-5 font-bold inline me-1" />Delete Writing</button>
-      </div>
+      <form action={deleteWriting}>
+        <button type="submit" className="text-error rounded-lg font-bold border border-border text-center cursor-pointer py-3 px-6 bg-surface flex gap-0.5 items-center">
+          <Trash className="size-4 font-bold inline me-1" />
+          <span>Delete Writing</span>
+        </button>
+      </form>
     </div>
   )
 }
