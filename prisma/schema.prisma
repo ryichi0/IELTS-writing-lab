@@ -45,6 +45,12 @@ model Topic {
   description String
   type        TopicType
   image       String?
+
+  publishDate DateTime? @unique @db.Date   
+  chartData   Json?                        
+  source      String?                      
+  sourceUrl   String?
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
