@@ -1,12 +1,12 @@
 import DailyTopicCard from './_components/DailyTopicCard'
 import RecentWritings from './_components/RecentWritings'
 import LearningSection from './_components/LearningSection'
-import { getLatestTopic } from '@/lib/topics';
+import { getTodayTopic } from '@/lib/topics';
 import { getCurrentUser } from '@/lib/auth';
 
 export default async function DashboardPage() {
 
-  const topic = await getLatestTopic()
+  const topic = await getTodayTopic();
   const user = await getCurrentUser()
 
 
