@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 
 const AUTH_PAGES = ["/login", "/sign-up"];
 const PUBLIC_EXACT = ["/", "/dashboard"];
-const PUBLIC_PREFIX = ["/learn", "/topics"];
+const PUBLIC_PREFIX = ["/learn", "/topics", "/api/cron"];
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -25,9 +25,18 @@ export async function proxy(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // فقط وقتی کوکی نشست هست از Supabase می‌پرسیم.
+  // مهمان‌ها هیچ تماس شبکه‌ای ایجاد نمی‌کنند.
+  const hasSessionCookie = request.cookies
+    .getAll()
+    .some((c) => c.name.startsWith("sb-"));
+
+  let isLoggedIn = false;
+  if (hasSessionCookie) {
+    // getClaims توکن را روی خود سرور اپ تأیید می‌کند و در حالت عادی تماس شبکه‌ای ندارد
+    const { data } = await supabase.auth.getClaims();
+    isLoggedIn = Boolean(data?.claims);
+  }
 
   const { pathname, search } = request.nextUrl;
 
@@ -37,7 +46,8 @@ export async function proxy(request: NextRequest) {
     PUBLIC_EXACT.includes(pathname) ||
     PUBLIC_PREFIX.some((p) => pathname === p || pathname.startsWith(p + "/"));
 
-  if (!user && !isPublic) {
+  // لاگین‌نکرده روی صفحه‌ی خصوصی
+  if (!isLoggedIn && !isPublic) {
     if (pathname.startsWith("/api/")) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -48,7 +58,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (user && isAuthPage) {
+  // لاگین‌کرده روی صفحه‌ی ورود یا ثبت‌نام
+  if (isLoggedIn && isAuthPage) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     url.search = "";

@@ -4,12 +4,16 @@ import { createClient } from "@/lib/supabase/server";
 
 export const getCurrentUser = cache(async () => {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return null;
+  const { data } = await supabase.auth.getClaims();
+  const claims = data?.claims;
+  if (!claims) return null;
+
+  const email = (claims.email as string | undefined) ?? "";
+  const meta = claims.user_metadata as { name?: string } | undefined;
 
   return {
-    id: user.id,
-    email: user.email!,
-    name: (user.user_metadata?.name as string | undefined) ?? user.email!.split("@")[0],
+    id: claims.sub,
+    email,
+    name: meta?.name ?? email.split("@")[0],
   };
 });
